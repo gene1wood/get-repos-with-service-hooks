@@ -2,12 +2,13 @@ from __future__ import print_function
 from agithub.GitHub import GitHub
 import json
 import re
+import os
 from pprint import pprint
 
-ORG_NAME = 'mozilla'
-REPOS_FILENAME = 'all_repos.json'
-HOOK_FILENAME = 'all_repo_hooks.json'
-GITHUB_TOKEN = ''
+ORG_NAME = os.environ.get("ORG_NAME", 'mozilla')
+REPOS_FILENAME = 'all_repos-{}.json'.format(ORG_NAME)
+HOOK_FILENAME = 'all_repo_hooks-{}.json'.format(ORG_NAME)
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", '')
 
 
 def parse_header_links(headers):
