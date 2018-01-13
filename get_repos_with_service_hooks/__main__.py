@@ -3,7 +3,6 @@ from agithub.GitHub import GitHub
 import json
 import re
 import os
-from pprint import pprint
 
 ORG_NAME = os.environ.get("ORG_NAME", 'mozilla')
 REPOS_FILENAME = 'all_repos-{}.json'.format(ORG_NAME)
@@ -82,7 +81,7 @@ except:
 for repo in [x['name'] for x in repos]:
     if repo in hooks:
         continue
-    print("Checking repo %s : " % repo, end='')
+    print("Checking repo %s : " % (repo,), end='')
     status, data = g.repos[ORG_NAME][repo].hooks.get()
     if status < 200 or status >= 300:
         print("Unexpected error %s : %s" % (status, data))
@@ -113,4 +112,4 @@ print('Private repos and the nonweb hooks enabled on them')
 print(json.dumps(private_repo_hook_map, indent=4))
 
 print('The nonweb hooks which are enabled on any private repos')
-print(json.dumps(private_repo_hook_map.keys(), indent=4))
+print(json.dumps(list(private_repo_hook_map.keys()), indent=4))
